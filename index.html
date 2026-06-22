@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兩岸無人機足球研習營 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+
+  :root {
+    --bg: #F5F7FA;
+    --bg2: #FFFFFF;
+    --text: #1A2335;
+    --text2: #4A5568;
+    --muted: #8A97A8;
+    --primary: #3B7BF5;
+    --primary-light: #EBF1FF;
+    --primary-dark: #2560D8;
+    --green: #18B77E;
+    --green-light: #E6F8F2;
+    --orange: #FF6B35;
+    --orange-light: #FFF0EB;
+    --yellow: #F5A623;
+    --yellow-light: #FFF8EC;
+    --red: #E53E3E;
+    --red-light: #FFF0F0;
+    --border: #E2E8F0;
+    --card-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #4F8EF7 0%, #3B7BF5 40%, #5B5FF5 100%);
+    padding: 64px 24px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '🚁';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.06;
+    right: -20px;
+    bottom: -30px;
+    line-height: 1;
+  }
+
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 4px 13px;
+    border-radius: 20px;
+  }
+
+  .badge.bright {
+    background: #FFD700;
+    border-color: #FFD700;
+    color: #7A4000;
+  }
+
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(30px, 7vw, 56px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title .accent {
+    background: linear-gradient(135deg, #FFE066, #FFB800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    max-width: 520px;
+    margin: 0 auto 36px;
+    line-height: 1.8;
+  }
+
+  .free-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--primary-dark);
+    font-size: 18px;
+    font-weight: 900;
+    padding: 14px 36px;
+    border-radius: 50px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    margin-bottom: 12px;
+  }
+
+  .free-note {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ORGS BANNER */
+  .orgs {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    text-align: center;
+  }
+
+  .orgs-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .orgs-names {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .orgs-names span {
+    color: var(--muted);
+    font-weight: 400;
+    margin: 0 8px;
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 52px 24px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 28px;
+    line-height: 1.3;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* INFO GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 500px) { .info-grid { grid-template-columns: 1fr; } }
+
+  .info-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .ic-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .ic-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .ic-value.blue { color: var(--primary); }
+  .ic-value.orange { color: var(--orange); }
+
+  /* INSTRUCTOR */
+  .instructor-block {
+    background: var(--primary-light);
+    border: 1.5px solid #C3D8FF;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .instructor-name {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .instructor-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+  }
+
+  .instructor-desc {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.8;
+  }
+
+  .team-block {
+    background: var(--yellow-light);
+    border: 1.5px solid #FDDEA0;
+    border-radius: 16px;
+    padding: 26px 28px;
+  }
+
+  .team-name {
+    font-size: 18px;
+    font-weight: 900;
+    color: #7A4000;
+    margin-bottom: 6px;
+  }
+
+  .team-badge {
+    display: inline-block;
+    background: #FFD700;
+    color: #7A4000;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .team-desc {
+    font-size: 14px;
+    color: #7A5500;
+    line-height: 1.8;
+  }
+
+  /* SCHEDULE */
+  .schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .schedule-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .schedule-item.training {
+    border-color: #C3D8FF;
+    background: var(--primary-light);
+  }
+
+  .day-badge { flex-shrink: 0; width: 48px; text-align: center; }
+
+  .day-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    display: block;
+  }
+
+  .day-date {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--primary);
+    display: block;
+    line-height: 1.2;
+  }
+
+  .schedule-item.training .day-date { color: var(--primary-dark); }
+
+  .day-theme {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .day-detail {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .day-tag {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 10px;
+    margin-top: 6px;
+  }
+
+  /* GET GRID */
+  .get-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 500px) { .get-grid { grid-template-columns: 1fr; } }
+
+  .get-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .get-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .get-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .get-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* GIFT */
+  .gift-block {
+    background: linear-gradient(135deg, #FFF8EC, #FFF2D8);
+    border: 1.5px solid #FDDEA0;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+  }
+
+  .gift-icon { font-size: 44px; margin-bottom: 10px; }
+  .gift-title { font-size: 18px; font-weight: 900; color: #7A4000; margin-bottom: 8px; }
+  .gift-desc { font-size: 14px; color: #7A5500; line-height: 1.7; }
+
+  /* CAREER */
+  .career-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .career-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .career-icon { font-size: 22px; flex-shrink: 0; width: 36px; text-align: center; }
+  .career-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .career-sub { font-size: 13px; color: var(--muted); }
+  .career-pay { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--green); white-space: nowrap; }
+
+  /* INCLUDED */
+  .included-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 480px) { .included-grid { grid-template-columns: 1fr; } }
+
+  .included-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    color: var(--text2);
+    padding: 11px 14px;
+    background: var(--green-light);
+    border: 1px solid #A8E8D0;
+    border-radius: 9px;
+  }
+
+  .included-item .check { color: var(--green); font-size: 15px; flex-shrink: 0; font-weight: 700; }
+
+  .not-included-block {
+    background: var(--orange-light);
+    border: 1px solid #FFD0BD;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+
+  .not-included-title { font-size: 13px; font-weight: 700; color: var(--orange); margin-bottom: 10px; letter-spacing: 0.04em; }
+
+  .not-included-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #AA5533;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .not-included-item:last-child { margin-bottom: 0; }
+
+  .note-box {
+    background: #FFFBEC;
+    border: 1px solid #FDDEA0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #7A5500;
+    line-height: 1.7;
+  }
+
+  .note-box strong {
+    color: #7A4000;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* CTA */
+  .cta-block {
+    background: linear-gradient(135deg, #3B7BF5, #5B5FF5);
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .cta-deadline {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .cta-title { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
+  .cta-sub { font-size: 14px; color: rgba(255,255,255,0.85); margin-bottom: 26px; line-height: 1.7; }
+
+  .quota-bar {
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    height: 7px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .quota-fill {
+    background: #FFD700;
+    height: 100%;
+    width: 28%;
+    border-radius: 8px;
+  }
+
+  .quota-text { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 26px; }
+
+  .cta-btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--primary-dark);
+    font-size: 16px;
+    font-weight: 900;
+    padding: 15px 48px;
+    border-radius: 50px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    cursor: pointer;
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+  }
+
+  .cta-contact { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.8; }
+  .cta-contact strong { color: #fff; }
+
+  footer {
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge-row">
+    <span class="badge">FIDA 國際標準</span>
+    <span class="badge bright">🏆 世界盃參賽師資</span>
+    <span class="badge">兩岸聯合主辦</span>
+  </div>
+  <p class="hero-eyebrow">2026 夏季 · 廈門</p>
+  <h1 class="hero-title">
+    兩岸無人機足球<br>
+    <span class="accent">研習營</span>
+  </h1>
+  <p class="hero-sub">
+    由2025 FIDA世界盃裁判長與全球16強翔鷹隊成員親自授課<br>
+    住五星大飯店・三天專業訓練・回程帶走一組競賽用無人機足球
+  </p>
+  <div class="free-pill">🎯 全程落地免費招待</div>
+  <br>
+  <p class="free-note">學員僅需自行抵達廈門五通碼頭，其餘全程由主辦單位招待</p>
+</div>
+
+<!-- ORGS -->
+<div class="orgs">
+  <p class="orgs-label">聯合主辦單位</p>
+  <p class="orgs-names">
+    台灣工業機器人協會
+    <span>×</span>
+    福建省無人機協會
+  </p>
+</div>
+
+<!-- 基本資訊 -->
+<div class="section">
+  <p class="section-label">活動資訊</p>
+  <h2 class="section-title">你需要知道的一切</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <p class="ic-label">活動日期</p>
+      <p class="ic-value blue">7月22日（二）<br>～ 7月27日（日）</p>
+    </div>
+    <div class="info-card">
+      <p class="ic-label">天數</p>
+      <p class="ic-value">六天五夜</p>
+    </div>
+    <div class="info-card">
+      <p class="ic-label">住宿地點</p>
+      <p class="ic-value">廈門翔鷺大飯店<br><span style="font-size:12px;color:#8A97A8;font-weight:400;">五星級・台商管理</span></p>
+    </div>
+    <div class="info-card">
+      <p class="ic-label">訓練基地</p>
+      <p class="ic-value">廈門南洋學院<br><span style="font-size:12px;color:#8A97A8;font-weight:400;">專業無人機足球訓練場</span></p>
+    </div>
+    <div class="info-card">
+      <p class="ic-label">招生對象</p>
+      <p class="ic-value">高中職・大學・研究所<br><span style="font-size:12px;color:#8A97A8;font-weight:400;">對無人機足球有興趣者</span></p>
+    </div>
+    <div class="info-card">
+      <p class="ic-label">每梯名額</p>
+      <p class="ic-value orange">限額 50 人</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 師資 -->
+<div class="section">
+  <p class="section-label">師資陣容</p>
+  <h2 class="section-title">世界盃等級的指導團隊</h2>
+
+  <div class="instructor-block">
+    <p class="instructor-name">陳洪升 老師</p>
+    <p class="instructor-title">技術總指導・全國資深無人機賽事裁判長</p>
+    <p class="instructor-desc">
+      2025年隨翔鷹無人機足球隊遠征韓國全州 FIDA 首屆世界盃，擔任全隊機體調校與戰術策劃，協助隊伍突破重圍晉入全球16強。具備裁判長與參賽者雙重視角，能系統解析國際賽得分規則、防守佈陣與實戰對抗技巧，是極少數同時熟悉執裁邏輯與競技策略的複合型師資。
+    </p>
+  </div>
+
+  <div class="team-block">
+    <p class="team-name">翔鷹無人機足球隊</p>
+    <span class="team-badge">2025 FIDA 世界盃 · 全球16強</span>
+    <p class="team-desc">
+      2025年9月出征韓國全州 FIDA 首屆世界盃，小組賽首輪力克韓國本土隊，一路連勝晉入全球前16強，是當屆最受矚目的中國民間戰隊。全隊具備完整國際賽操控、跨國戰術對抗、大賽心態調節等實戰經驗，由隊伍核心成員擔任實操教練，直接傳授世界盃備賽全流程技巧。
+    </p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 行程 -->
+<div class="section">
+  <p class="section-label">六天行程</p>
+  <h2 class="section-title">每一天都有明確產出</h2>
+  <div class="schedule-list">
+
+    <div class="schedule-item">
+      <div class="day-badge">
+        <span class="day-num">DAY</span>
+        <span class="day-date">1<br><span style="font-size:11px;font-weight:500;">7/22</span></span>
+      </div>
+      <div>
+        <p class="day-theme">抵廈・開營歡迎日 🛬</p>
+        <p class="day-detail">五通碼頭接機 → 入住翔鷺五星大飯店 → 歡迎晚會・項目介紹・安全宣講・分組編隊</p>
+      </div>
+    </div>
+
+    <div class="schedule-item training">
+      <div class="day-badge">
+        <span class="day-num">DAY</span>
+        <span class="day-date">2<br><span style="font-size:11px;font-weight:500;">7/23</span></span>
+      </div>
+      <div>
+        <p class="day-theme">基礎建立日 🚁</p>
+        <p class="day-detail">規則體系・安全規範・裝備認識 → 無人機組裝實操 → 四通道飛行基礎・定點懸停訓練</p>
+        <span class="day-tag">1:8 小班制</span>
+      </div>
+    </div>
+
+    <div class="schedule-item training">
+      <div class="day-badge">
+        <span class="day-num">DAY</span>
+        <span class="day-date">3<br><span style="font-size:11px;font-weight:500;">7/24</span></span>
+      </div>
+      <div>
+        <p class="day-theme">技術強化日 ⚡</p>
+        <p class="day-detail">模擬飛行・個人技術強化 → 攻防對抗訓練・戰術演練・小組配合 → 裝備保養與技術考核</p>
+        <span class="day-tag">實戰對抗</span>
+      </div>
+    </div>
+
+    <div class="schedule-item training">
+      <div class="day-badge">
+        <span class="day-num">DAY</span>
+        <span class="day-date">4<br><span style="font-size:11px;font-weight:500;">7/25</span></span>
+      </div>
+      <div>
+        <p class="day-theme">競技裁判日 🏆</p>
+        <p class="day-detail">裁判禮儀・規則精講・手勢教學 → 場景模擬・實操執裁 → 考核發證・頒發官方結業證書</p>
+        <span class="day-tag">考核發證</span>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="day-badge">
+        <span class="day-num">DAY</span>
+        <span class="day-date">5<br><span style="font-size:11px;font-weight:500;">7/26</span></span>
+      </div>
+      <div>
+        <p class="day-theme">廈門體驗日 🌊</p>
+        <p class="day-detail">體驗廈門・放鬆身心・拓展視野<br><span style="color:#8A97A8;font-size:12px;">【待填：具體行程，如鼓浪嶼/廈大/閩南美食】</span></p>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="day-badge">
+        <span class="day-num">DAY</span>
+        <span class="day-date">6<br><span style="font-size:11px;font-weight:500;">7/27</span></span>
+      </div>
+      <div>
+        <p class="day-theme">結業・返台 ✈️</p>
+        <p class="day-detail">送機至五通碼頭 → 帶著結業證書與專屬無人機足球踏上歸途</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 收穫 -->
+<div class="section">
+  <p class="section-label">學員收穫</p>
+  <h2 class="section-title">帶走的不只是回憶</h2>
+
+  <div class="get-grid">
+    <div class="get-card">
+      <span class="get-icon">📜</span>
+      <p class="get-title">官方結業證書</p>
+      <p class="get-desc">FIDA體系認證，完整考核通過後頒發，升學與履歷的硬核加分</p>
+    </div>
+    <div class="get-card">
+      <span class="get-icon">🎯</span>
+      <p class="get-title">國際賽級操控技術</p>
+      <p class="get-desc">從零基礎到能飛、能賽、能裁，三天真實技能養成</p>
+    </div>
+    <div class="get-card">
+      <span class="get-icon">⚖️</span>
+      <p class="get-title">裁判執裁能力</p>
+      <p class="get-desc">FIDA規則精講、手勢演練、場景模擬，具備獨立執裁資格</p>
+    </div>
+    <div class="get-card">
+      <span class="get-icon">🌐</span>
+      <p class="get-title">兩岸交流人脈</p>
+      <p class="get-desc">與世界盃參賽選手同場訓練，建立兩岸無人機足球核心圈人脈</p>
+    </div>
+  </div>
+
+  <div class="gift-block">
+    <div class="gift-icon">🚁</div>
+    <p class="gift-title">回程人手一組・GD18 Pro 專業競賽用無人機足球</p>
+    <p class="gift-desc">
+      帶AI獨立懸停算法・電機幻彩燈光・FIDA標準規格<br>
+      市價人民幣 ¥212.5｜回台後繼續練習、組隊備賽，就從這顆球開始
+    </p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 未來機會 -->
+<div class="section">
+  <p class="section-label">結業後的機會</p>
+  <h2 class="section-title">這是入行的起點，不是終點</h2>
+  <p style="font-size:14px;color:#4A5568;margin-bottom:22px;line-height:1.8;">
+    結業學員進入台灣無人機足球推廣網絡，未來台灣區賽事與培訓活動優先徵召
+  </p>
+  <div class="career-list">
+    <div class="career-item">
+      <span class="career-icon">🏟️</span>
+      <div>
+        <p class="career-title">賽事選手</p>
+        <p class="career-sub">優先報名台灣區及兩岸無人機足球賽事</p>
+      </div>
+    </div>
+    <div class="career-item">
+      <span class="career-icon">⚖️</span>
+      <div>
+        <p class="career-title">賽事裁判員</p>
+        <p class="career-sub">具備FIDA體系裁判資格，優先徵召執裁</p>
+      </div>
+      <span class="career-pay">NT$2,000／天起</span>
+    </div>
+    <div class="career-item">
+      <span class="career-icon">🎓</span>
+      <div>
+        <p class="career-title">訓練員・師資</p>
+        <p class="career-sub">培訓合格後可擔任無人機足球推廣課師資</p>
+      </div>
+      <span class="career-pay">課時費 NT$400起</span>
+    </div>
+    <div class="career-item">
+      <span class="career-icon">📋</span>
+      <div>
+        <p class="career-title">活動組織人員</p>
+        <p class="career-sub">參與台灣區賽事策劃、場地管理與執行</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 費用 -->
+<div class="section">
+  <p class="section-label">費用說明</p>
+  <h2 class="section-title">落地全免・只差一張船票</h2>
+
+  <div class="included-grid">
+    <div class="included-item"><span class="check">✓</span>五通碼頭全程接送</div>
+    <div class="included-item"><span class="check">✓</span>翔鷺五星大飯店五晚</div>
+    <div class="included-item"><span class="check">✓</span>研習營全程餐飲</div>
+    <div class="included-item"><span class="check">✓</span>三天訓練課程＋師資</div>
+    <div class="included-item"><span class="check">✓</span>廈門體驗日全程安排</div>
+    <div class="included-item"><span class="check">✓</span>GD18 Pro 無人機足球一組</div>
+    <div class="included-item"><span class="check">✓</span>官方結業證書</div>
+    <div class="included-item"><span class="check">✓</span>訓練期間全套器材</div>
+  </div>
+
+  <div class="not-included-block">
+    <p class="not-included-title">⚠️ 學員自理項目</p>
+    <div class="not-included-item"><span>→</span><span>台灣至廈門五通碼頭交通費（台北↔金門機票＋小三通船票，約NT$2,500–4,000）</span></div>
+    <div class="not-included-item"><span>→</span><span>台胞證辦理費用（約NT$1,500–2,000，未辦者請提前辦理）</span></div>
+    <div class="not-included-item"><span>→</span><span>個人消費</span></div>
+  </div>
+
+  <div class="note-box">
+    <strong>📌 關於台胞證</strong>
+    入境廈門需持台胞證或護照（中國大陸簽注）。尚未辦理者請於報名後盡快辦理，約需5–7個工作天。如需協助說明辦理流程，請聯繫主辦單位。
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CTA -->
+<div class="section">
+  <div class="cta-block">
+    <span class="cta-deadline">⏰ 報名截止：7月3日</span>
+    <h2 class="cta-title">限額50人・額滿即止</h2>
+    <p class="cta-sub">
+      五星住宿・世界盃師資・結業證書・競賽用無人機足球<br>
+      全程落地免費招待，你只需要出現在碼頭
+    </p>
+    <div class="quota-bar"><div class="quota-fill"></div></div>
+    <p class="quota-text">名額釋出中，請盡早確認</p>
+    <div class="cta-btn">立即報名</div>
+    <br><br>
+    <p class="cta-contact">
+      報名洽詢：<strong>【待填：聯絡人姓名】</strong><br>
+      LINE／電話：<strong>【待填】</strong><br>
+      承辦：銀門國際有限公司・芯才庫（廈門）科技有限公司
+    </p>
+  </div>
+</div>
+
+<footer>
+  台灣工業機器人協會 × 福建省無人機協會 聯合主辦 · 2026 兩岸無人機足球研習營<br>
+  本簡章內容如有調整，以主辦單位最終公告為準
+</footer>
+
+</body>
+</html>
