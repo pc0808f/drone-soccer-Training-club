@@ -36,18 +36,19 @@
     <table style="width:100%;border-collapse:collapse;font-size:13px;">
       <thead>
         <tr style="background:var(--bg);">
-          <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">#</th>
+          <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">編號</th>
           <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">身份</th>
           <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">姓名</th>
           <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">隊伍</th>
           <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">手機</th>
           <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">時間</th>
+          <th style="padding:10px 8px;text-align:left;border-bottom:2px solid var(--border);">操作</th>
         </tr>
       </thead>
       <tbody>
         {% for reg, team_code, team_name in registrations %}
         <tr style="border-bottom:1px solid var(--border);">
-          <td style="padding:10px 8px;color:var(--muted);">{{ loop.index }}</td>
+          <td style="padding:10px 8px;color:var(--muted);font-size:11px;">DSR-{{ "%05d"|format(reg.id) }}</td>
           <td style="padding:10px 8px;">
             <span style="display:inline-block;padding:2px 10px;border-radius:10px;font-size:12px;font-weight:700;{% if reg.role == 'leader' %}background:var(--orange-light);color:var(--orange);{% else %}background:var(--green-light);color:var(--green);{% endif %}">
               {{ "領隊" if reg.role == "leader" else "學員" }}
@@ -64,10 +65,16 @@
           </td>
           <td style="padding:10px 8px;">{{ reg.phone }}</td>
           <td style="padding:10px 8px;font-size:12px;color:var(--muted);">{{ reg.created_at.strftime("%m/%d %H:%M") if reg.created_at else "" }}</td>
+          <td style="padding:10px 8px;">
+            <form method="POST" action="/admin/delete/{{ reg.id }}" style="margin:0;"
+                  onsubmit="return confirm('確定刪除「{{ reg.name }}」的報名？此動作無法復原。');">
+              <button type="submit" style="background:none;border:1px solid #E53E3E;color:#E53E3E;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">刪除</button>
+            </form>
+          </td>
         </tr>
         {% else %}
         <tr>
-          <td colspan="6" style="padding:40px;text-align:center;color:var(--muted);">尚無報名記錄</td>
+          <td colspan="7" style="padding:40px;text-align:center;color:var(--muted);">尚無報名記錄</td>
         </tr>
         {% endfor %}
       </tbody>

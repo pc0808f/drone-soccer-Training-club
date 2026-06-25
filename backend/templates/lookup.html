@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}查詢報名{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>查詢報名</h1>
+  <p class="subtitle">輸入報名時填寫的身分證字號與手機號碼</p>
+
+  {% if error %}
+  <div class="error-msg">{{ error }}</div>
+  {% endif %}
+
+  {% if result %}
+  <div style="background:var(--green-light);border-radius:12px;padding:20px;margin-bottom:20px;text-align:center;">
+    <div style="font-size:40px;margin-bottom:8px;">✅</div>
+    <p style="font-size:18px;font-weight:900;color:var(--green);">已完成報名</p>
+    <hr style="border:none;border-top:1px solid var(--border);margin:14px auto;width:60%;">
+    <p style="font-size:13px;color:var(--text2);">報名編號</p>
+    <p style="font-size:22px;font-weight:900;letter-spacing:0.08em;">{{ result.reg_no }}</p>
+    <div style="text-align:left;font-size:14px;color:var(--text);margin-top:14px;line-height:2;">
+      <div><b>姓名：</b>{{ result.name }}</div>
+      <div><b>身份：</b>{{ result.role }}</div>
+      {% if result.team_code %}
+      <div><b>隊伍代碼：</b>{{ result.team_code }}</div>
+      <div><b>隊伍名稱：</b>{{ result.team_name }}</div>
+      {% endif %}
+      <div><b>報名時間：</b>{{ result.created_at }}</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <form method="POST" action="/lookup">
+    <div class="form-group">
+      <label>台灣身分證號 <span class="required">*</span></label>
+      <input type="text" name="tw_id" required placeholder="A123456789">
+    </div>
+    <div class="form-group">
+      <label>手機號碼 <span class="required">*</span></label>
+      <input type="text" name="phone" required placeholder="0912-345-678">
+      <div class="form-hint">需與報名時填寫的資料完全一致</div>
+    </div>
+    <button type="submit" class="btn btn-primary">查詢</button>
+  </form>
+
+  <a href="/" class="btn btn-outline" style="margin-top:12px;text-decoration:none;">返回首頁</a>
+</div>
+{% endblock %}

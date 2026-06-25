@@ -104,6 +104,36 @@ def csv_safe(value):
     return s
 
 
+# Self-service lookup rate limit (needs both ID + phone, but still throttle).
+_lookup_hits = defaultdict(list)
+LOOKUP_MAX = 10
+LOOKUP_WINDOW = 60
+
+
+def lookup_rate_ok(ip):
+    _lookup_hits[ip] = _recent(_lookup_hits[ip], LOOKUP_WINDOW)
+    if len(_lookup_hits[ip]) >= LOOKUP_MAX:
+        return False
+    _lookup_hits[ip].append(time.time())
+    return True
+
+
+def find_duplicate(db, tw_id, taiwan_passport):
+    """A person counts as already registered if either ID already exists."""
+    return (
+        db.query(Registration)
+        .filter(
+            (Registration.tw_id == tw_id)
+            | (Registration.taiwan_passport == taiwan_passport)
+        )
+        .first()
+    )
+
+
+def reg_number(reg):
+    return f"DSR-{reg.id:05d}"
+
+
 @app.middleware("http")
 async def security_headers(request: Request, call_next):
     resp = await call_next(request)
@@ -162,6 +192,12 @@ def register_leader_submit(
             request, "register_leader.html",
             {"error": "輸入資料長度超過限制，請確認後重試。"}, status_code=400,
         )
+    if find_duplicate(db, tw_id, taiwan_passport):
+        return templates.TemplateResponse(
+            request, "register_leader.html",
+            {"error": "此身分證字號或台胞證號已報名過，請勿重複報名。如需查詢請至「查詢報名」頁面。"},
+            status_code=400,
+        )
 
     team = Team(team_code=Team.generate_code(db), team_name=team_name)
     db.add(team)
@@ -185,6 +221,7 @@ def register_leader_submit(
     db.commit()
 
     return templates.TemplateResponse(request, "success.html", {
+        "reg_no": reg_number(reg),
         "team_code": team.team_code,
         "team_name": team.team_name,
         "role": "領隊",
@@ -226,6 +263,12 @@ def register_member_submit(
             request, "register_member.html",
             {"error": "輸入資料長度超過限制，請確認後重試。"}, status_code=400,
         )
+    if find_duplicate(db, tw_id, taiwan_passport):
+        return templates.TemplateResponse(
+            request, "register_member.html",
+            {"error": "此身分證字號或台胞證號已報名過，請勿重複報名。如需查詢請至「查詢報名」頁面。"},
+            status_code=400,
+        )
 
     team = db.query(Team).filter(Team.team_code == team_code).first()
     if not team:
@@ -250,9 +293,52 @@ def register_member_submit(
     db.commit()
 
     return templates.TemplateResponse(request, "success.html", {
+        "reg_no": reg_number(reg),
         "team_code": team.team_code,
         "team_name": team.team_name,
         "role": "學員",
+    })
+
+
+# ── self-service lookup ──────────────────────────────────────────────────
+
+@app.get("/lookup", response_class=HTMLResponse)
+def lookup_form(request: Request):
+    return templates.TemplateResponse(request, "lookup.html")
+
+
+@app.post("/lookup", response_class=HTMLResponse)
+def lookup_submit(
+    request: Request,
+    tw_id: str = Form(...),
+    phone: str = Form(...),
+    db: Session = Depends(get_db),
+):
+    if not lookup_rate_ok(client_ip(request)):
+        return templates.TemplateResponse(
+            request, "lookup.html",
+            {"error": "查詢過於頻繁，請稍候再試。"}, status_code=429,
+        )
+    # Require BOTH id + phone to match -> avoids single-field enumeration.
+    reg = (
+        db.query(Registration)
+        .filter(Registration.tw_id == tw_id, Registration.phone == phone)
+        .first()
+    )
+    if not reg:
+        return templates.TemplateResponse(request, "lookup.html", {
+            "error": "查無資料，請確認身分證字號與手機號碼是否與報名時一致。",
+        })
+    team = reg.team
+    return templates.TemplateResponse(request, "lookup.html", {
+        "result": {
+            "reg_no": reg_number(reg),
+            "name": reg.name,
+            "role": "領隊" if reg.role == "leader" else "學員",
+            "team_code": team.team_code if team else "",
+            "team_name": team.team_name if team else "",
+            "created_at": reg.created_at.strftime("%Y-%m-%d %H:%M") if reg.created_at else "",
+        },
     })
 
 
@@ -287,6 +373,30 @@ def admin_login_submit(request: Request, password: str = Form(...)):
 def admin_logout(request: Request):
     request.session.clear()
     return RedirectResponse("/admin/login", status_code=302)
+
+
+@app.post("/admin/delete/{reg_id}")
+def admin_delete(request: Request, reg_id: int, db: Session = Depends(get_db)):
+    try:
+        require_admin(request)
+    except HTTPException:
+        return RedirectResponse("/admin/login", status_code=302)
+
+    reg = db.get(Registration, reg_id)
+    if reg:
+        team = reg.team
+        db.delete(reg)
+        # If this was the last member of its team, drop the empty team too.
+        if team is not None:
+            remaining = (
+                db.query(Registration)
+                .filter(Registration.team_id == team.id, Registration.id != reg_id)
+                .count()
+            )
+            if remaining == 0:
+                db.delete(team)
+        db.commit()
+    return RedirectResponse("/admin", status_code=302)
 
 
 @app.get("/admin", response_class=HTMLResponse)
