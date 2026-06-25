@@ -17,6 +17,15 @@ connect_args = (
     {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 )
 
+# Ensure the SQLite file's parent directory exists. On Railway the DB lives on
+# a Volume mounted at e.g. /data; create the folder so startup doesn't crash if
+# the path isn't there yet (works both before and after the Volume is attached).
+if DATABASE_URL.startswith("sqlite"):
+    db_path = DATABASE_URL.replace("sqlite:///", "", 1)
+    db_dir = os.path.dirname(db_path)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
+
 engine = create_engine(DATABASE_URL, connect_args=connect_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

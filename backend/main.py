@@ -34,12 +34,12 @@ def require_admin(request: Request):
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request, "index.html")
 
 
 @app.get("/register/leader", response_class=HTMLResponse)
 def register_leader_form(request: Request):
-    return templates.TemplateResponse("register_leader.html", {"request": request})
+    return templates.TemplateResponse(request, "register_leader.html")
 
 
 @app.post("/register/leader")
@@ -79,8 +79,7 @@ def register_leader_submit(
     db.add(reg)
     db.commit()
 
-    return templates.TemplateResponse("success.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "success.html", {
         "team_code": team.team_code,
         "team_name": team.team_name,
         "role": "領隊",
@@ -89,7 +88,7 @@ def register_leader_submit(
 
 @app.get("/register/member", response_class=HTMLResponse)
 def register_member_form(request: Request):
-    return templates.TemplateResponse("register_member.html", {"request": request})
+    return templates.TemplateResponse(request, "register_member.html")
 
 
 @app.post("/register/member")
@@ -109,8 +108,7 @@ def register_member_submit(
 ):
     team = db.query(Team).filter(Team.team_code == team_code).first()
     if not team:
-        return templates.TemplateResponse("register_member.html", {
-            "request": request,
+        return templates.TemplateResponse(request, "register_member.html", {
             "error": f"隊伍代碼「{team_code}」不存在，請確認後重試。",
         })
 
@@ -130,8 +128,7 @@ def register_member_submit(
     db.add(reg)
     db.commit()
 
-    return templates.TemplateResponse("success.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "success.html", {
         "team_code": team.team_code,
         "team_name": team.team_name,
         "role": "學員",
@@ -144,7 +141,7 @@ def register_member_submit(
 def admin_login_form(request: Request):
     if request.session.get("admin_logged_in"):
         return RedirectResponse("/admin", status_code=302)
-    return templates.TemplateResponse("admin_login.html", {"request": request})
+    return templates.TemplateResponse(request, "admin_login.html")
 
 
 @app.post("/admin/login")
@@ -152,8 +149,7 @@ def admin_login_submit(request: Request, password: str = Form(...)):
     if password == ADMIN_PASSWORD:
         request.session["admin_logged_in"] = True
         return RedirectResponse("/admin", status_code=302)
-    return templates.TemplateResponse("admin_login.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "admin_login.html", {
         "error": "密碼錯誤",
     })
 
@@ -183,8 +179,7 @@ def admin_dashboard(request: Request, db: Session = Depends(get_db)):
         "members": db.query(Registration).filter(Registration.role == "member").count(),
         "teams": db.query(Team).count(),
     }
-    return templates.TemplateResponse("admin_dashboard.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "admin_dashboard.html", {
         "registrations": registrations,
         "stats": stats,
     })
