@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Local env / secrets
+.env
+*.local
+
+# Local DB (SQLite dev fallback)
+*.db
+*.sqlite3
+
+# Claude Code local settings
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db

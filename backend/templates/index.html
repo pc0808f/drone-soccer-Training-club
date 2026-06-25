@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}報名首頁 — 無人機足球研習營{% endblock %}
+{% block content %}
+<div class="card" style="text-align:center;">
+  <h1>兩岸無人機足球<br><span class="accent">青年領袖研習營</span></h1>
+  <p class="subtitle">2026 · 廈門</p>
+
+  <hr style="border:none;border-top:2px solid var(--border);margin:24px 0;">
+
+  <p style="font-size:16px;font-weight:700;margin-bottom:20px;">選擇報名身份</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <a href="/register/leader" style="display:block;padding:18px;background:var(--primary);color:#fff;border-radius:12px;text-decoration:none;font-size:17px;font-weight:700;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+      領隊報名
+      <div style="font-size:12px;font-weight:400;opacity:0.8;margin-top:4px;">建立隊伍 · 管理團員</div>
+    </a>
+    <a href="/register/member" style="display:block;padding:18px;background:var(--bg2);color:var(--primary);border:2px solid var(--primary);border-radius:12px;text-decoration:none;font-size:17px;font-weight:700;transition:background 0.2s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--bg2)'">
+      學員報名
+      <div style="font-size:12px;font-weight:400;color:var(--text2);margin-top:4px;">輸入隊伍代碼加入所屬隊伍</div>
+    </a>
+  </div>
+
+  <hr style="border:none;border-top:1px solid var(--border);margin:28px 0 16px;">
+
+  <div style="font-size:13px;color:var(--muted);">
+    <p>報名前請確認已有領隊建立之隊伍代碼</p>
+    <p style="margin-top:4px;">如需協助請洽主辦單位</p>
+  </div>
+</div>
+{% endblock %}

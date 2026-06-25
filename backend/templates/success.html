@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}報名成功{% endblock %}
+{% block content %}
+<div class="card" style="text-align:center;">
+  <div style="font-size:48px;margin-bottom:12px;">✅</div>
+  <h1>報名成功！</h1>
+  <p class="subtitle">感謝您的報名</p>
+
+  <div style="background:var(--green-light);border-radius:12px;padding:20px;margin:20px 0;">
+    <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">您的身份</p>
+    <p style="font-size:22px;font-weight:900;color:var(--green);">{{ role }}</p>
+
+    {% if team_code %}
+    <hr style="border:none;border-top:1px solid var(--border);margin:16px auto;width:60%;">
+
+    <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">隊伍代碼</p>
+    <p style="font-size:32px;font-weight:900;color:var(--primary);letter-spacing:0.15em;">{{ team_code }}</p>
+    <p style="font-size:14px;color:var(--text2);margin-top:8px;">隊伍名稱：{{ team_name }}</p>
+
+    {% if role == "領隊" %}
+    <div style="background:var(--primary-light);border-radius:8px;padding:12px;margin-top:16px;">
+      <p style="font-size:13px;color:var(--primary-dark);">
+        ⚠️ 請將此隊伍代碼提供給您的學員，<br>
+        他們報名時需要輸入此代碼才能加入隊伍。
+      </p>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+
+  <a href="/" class="btn btn-outline" style="margin-top:12px;text-decoration:none;">返回首頁</a>
+</div>
+{% endblock %}
