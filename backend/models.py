@@ -33,7 +33,7 @@ class Registration(Base):
     name = Column(String(100), nullable=False)
     gender = Column(String(10), nullable=False)
     birth_date = Column(String(20), nullable=False)
-    taiwan_passport = Column(String(50), nullable=True)
+    taiwan_passport = Column(String(50), nullable=False)
     tw_id = Column(String(20), nullable=False)
     phone = Column(String(20), nullable=False)
     first_time_in_china = Column(String(10), nullable=False)
